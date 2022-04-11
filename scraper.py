@@ -30,16 +30,17 @@ time.sleep(3)
 
 chat_pointers = driver.find_elements(By.XPATH, '//*[@id="jsc_c_c"]/div/div/*')
 
-for chat_pointer in chat_pointers[:1]:
+# WIP: does not handle scrolling through chat yet
+unread_count = 0
+for chat_pointer in chat_pointers:
     # click to get proper chat box to appear
-    chat_pointer.click()
-    print("HERE")
-    # search updated html for chat history
-    loaded_chat = driver.find_element(By.XPATH, '//*[@id="jsc_c_1t"]')
+    try:
+        is_unread = chat_pointer.find_element(
+            By.CSS_SELECTOR, '[aria-label="Mark as read"]'
+        )
+        print(is_unread)
+        unread_count += 1
+    except Exception as e:
+        print("is read")
 
-    loaded_chat_rows = loaded_chat.find_elements(By.XPATH, '//*[@role="row"]')
-
-    for row in loaded_chat_rows:
-        print(row.text)
-
-    time.sleep(10)
+    time.sleep(1)
