@@ -1,0 +1,11 @@
+# log + temp files
+*.log
+*temp
+
+# virtual environment
+venv
+
+# config secrets
+.env
+
+
