@@ -54,6 +54,9 @@ coverage.xml
 # Django stuff:
 staticfiles/
 
+# NOTE: we add this for our project if we use sqlite as our local db for testing
+*.sqlite3
+
 # Sphinx documentation
 docs/_build/
 
