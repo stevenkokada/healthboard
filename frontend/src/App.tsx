@@ -4,7 +4,7 @@ import "./App.css";
 
 function App() {
   useEffect(() => {
-    fetch("http://ec2-18-144-155-199.us-west-1.compute.amazonaws.com:8000")
+    fetch("https://okada-api.com")
       .then((response) => response.json())
       .then((data) => console.log(data));
   });
