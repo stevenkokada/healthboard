@@ -25,7 +25,7 @@ login_button = driver.find_element(By.ID, "loginbutton")
 
 login_button.click()
 
-time.sleep(3)
+time.sleep(5)
 
 # Message extraction
 
@@ -33,21 +33,34 @@ chat_pointers = driver.find_elements(By.XPATH, '//*[@id="jsc_c_c"]/div/div/*')
 
 # WIP: does not handle scrolling through chat yet
 unread_count = 0
-for chat_pointer in chat_pointers:
-    # click to get proper chat box to appear
-    try:
-        is_unread = chat_pointer.find_element(
-            By.CSS_SELECTOR, '[aria-label="Mark as read"]'
-        )
-        unread_count += 1
-    except Exception as e:
-        print("is read")
+# for chat_pointer in chat_pointers:
+#     # click to get proper chat box to appear
+#     try:
+#         is_unread = chat_pointer.find_element(
+#             By.CSS_SELECTOR, '[aria-label="Mark as read"]'
+#         )
+        
+#         unread_count += 1
 
-    time.sleep(1)
+#     except Exception as e:
+#         print("is read")
+
+#     time.sleep(1)
+
+scraped_messages = set()
+
+unread_chat_names_elts = driver.find_elements(By.XPATH, '//*[@id="jsc_c_c"]/div/div/div[*]/div/div[1]/a/div[1]/div/div[2]/div/div/span/span')
+for chat_name_elt in unread_chat_names_elts:
+    try:
+        if int(chat_name_elt.value_of_css_property('font-weight')) > 500:
+            unread_count += 1
+            sender_name = chat_name_elt.get_attribute("innerText")
+            scraped_messages.add(sender_name)
+    except Exception as e:
+        print("couldn't get chat name")
 
 print(f"is_unread: {unread_count}")
 # Write to DB
 
-scraped_messages = {"alex": {}, "jenn": {}}
 
 write_unread_messages(scraped_messages)
