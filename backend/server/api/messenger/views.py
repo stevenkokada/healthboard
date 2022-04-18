@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User, Group
+from api.messenger.models import UnreadMessage
+from api.messenger.models import UnreadMessage
 from rest_framework import viewsets, permissions
-from api.messenger.serializers import UserSerializer, GroupSerializer
+from api.messenger.serializers import UserSerializer, GroupSerializer, UnreadMessageSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -19,3 +21,8 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class UnreadMessageViewSet(viewsets.ModelViewSet):
+    queryset = UnreadMessage.objects.all()
+    serializer_class = UnreadMessageSerializer
