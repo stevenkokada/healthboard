@@ -4,7 +4,13 @@ import "./App.css";
 
 function App() {
   useEffect(() => {
-    fetch("https://okada-api.com")
+    // DJANGO RESOURCES NEED TRAILING SLASH FOR SOME GODDAMN REASON
+    // PROD_BACKEND - LEAVE THIS ENABLED BY DEFAULT SINCE THIS GETS SERVED until we flag on env vars
+    // fetch("https://okada-api.com/")
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data));
+    // LOCAL_BACKEND
+    fetch("http://127.0.0.1:8000/groups/")
       .then((response) => response.json())
       .then((data) => console.log(data));
   });
