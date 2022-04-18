@@ -31,9 +31,10 @@ sender_name = "MOCK_SENDER"
 
 def write_unread_messages(scraped_messages):
 
+    scraper_run_ms = int(time.time())
     unread_message_models = []
     for name in scraped_messages:
-        unread_message_model = UnreadMessage(sender_name=name, scraper_run_time=(int(time.time())))
+        unread_message_model = UnreadMessage(sender_name=name, scraper_run_time=scraper_run_ms)
         unread_message_models.append(unread_message_model)
 
     return UnreadMessage.objects.bulk_create(unread_message_models)
