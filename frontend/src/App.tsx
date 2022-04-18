@@ -1,38 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+interface UnreadMesssagesDate {
+  messages: Array<any>;
+}
+
 function App() {
+  const [unreadMessages, setUnreadMessages] = useState(
+    {} as UnreadMesssagesDate
+  );
   useEffect(() => {
     // DJANGO RESOURCES NEED TRAILING SLASH FOR SOME GODDAMN REASON
     // PROD_BACKEND - LEAVE THIS ENABLED BY DEFAULT SINCE THIS GETS SERVED until we flag on env vars
-    // fetch("https://okada-api.com/")
-    //   .then((response) => response.json())
-    //   .then((data) => console.log(data));
-    // LOCAL_BACKEND
-    fetch("http://127.0.0.1:8000/groups/")
+    fetch("https://okada-api.com/unread_messages/")
       .then((response) => response.json())
       .then((data) => console.log(data));
+    // LOCAL_BACKEND
+    // fetch("http://127.0.0.1:8000/unread_messages/")
+    //   .then((response) => response.json())
+    //   .then((data) => setUnreadMessages({ messages: data.results }));
   });
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  if (unreadMessages && unreadMessages?.messages?.length == 0) {
+    return <>No Message Data</>;
+  }
+
+  const messages = unreadMessages?.messages?.map((message) => {
+    return (
+      <>
+        {message.sender_name}
+        {message.scraper_run_time}
+      </>
+    );
+  });
+
+  return <>{messages}</>;
 }
 
 export default App;
