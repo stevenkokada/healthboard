@@ -15,7 +15,7 @@ function App() {
     // PROD_BACKEND - LEAVE THIS ENABLED BY DEFAULT SINCE THIS GETS SERVED until we flag on env vars
     fetch("https://okada-api.com/unread_messages/")
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setUnreadMessages({ messages: data.results }));
     // LOCAL_BACKEND
     // fetch("http://127.0.0.1:8000/unread_messages/")
     //   .then((response) => response.json())
