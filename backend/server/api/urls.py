@@ -19,13 +19,11 @@ from rest_framework import routers
 from api.messenger import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register(r'unread_messages', views.UnreadMessageViewSet)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('unread_messages/', include(router.urls))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
