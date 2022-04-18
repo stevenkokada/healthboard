@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from database import write_unread_messages
 import time
 import os
 
@@ -38,9 +39,15 @@ for chat_pointer in chat_pointers:
         is_unread = chat_pointer.find_element(
             By.CSS_SELECTOR, '[aria-label="Mark as read"]'
         )
-        print(is_unread)
         unread_count += 1
     except Exception as e:
         print("is read")
 
     time.sleep(1)
+
+print(f"is_unread: {unread_count}")
+# Write to DB
+
+scraped_messages = {"alex": {}, "jenn": {}}
+
+write_unread_messages(scraped_messages)
