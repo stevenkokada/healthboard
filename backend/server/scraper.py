@@ -42,6 +42,11 @@ while True:
     unread_chat_names_elts = driver.find_elements(By.XPATH, '//*[@id="jsc_c_c"]/div/div/div[*]/div/div[1]/a/div[1]/div/div[2]/div/div/span/span')
     print("number of chats: ", len(unread_chat_names_elts))
 
+    # If we aren't seeing any chat elements, something is wrong, exit the program
+    if len(unread_chat_names_elts) == 0:
+        driver.save_screenshot(f"screenshot-{int(time.time())}.png")
+        break
+
     for chat_name_elt in unread_chat_names_elts:
         try:
             if int(chat_name_elt.value_of_css_property('font-weight')) > 500:
