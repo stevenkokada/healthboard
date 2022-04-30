@@ -9,6 +9,10 @@ services:
     ports:
       - "8000:8000"
 
+    # CAREFUL: this checks to see migrations have started, not necessarily finished
+    depends_on:
+      - migrate
+
   migrate:
     build: .
     entrypoint: python server/manage.py migrate
