@@ -20,3 +20,19 @@ services:
     volumes:
       - .:/code
 
+  selenium:
+    image: selenium/standalone-chrome:97.0-chromedriver-97.0
+
+    ports:
+      - "4444:4444"
+    restart: always
+
+  scraper:
+    build:
+      context: .
+    volumes:
+      - .:/code
+    command: python server/scraper.py
+    depends_on:
+      - selenium
+
