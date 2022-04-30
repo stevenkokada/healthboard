@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.9"
    
 services:
   web:
@@ -7,8 +7,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
-
+      - "127.0.0.1:8000:8000"
     # CAREFUL: this checks to see migrations have started, not necessarily finished
     depends_on:
       - migrate
