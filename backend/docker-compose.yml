@@ -35,4 +35,7 @@ services:
     command: python server/scraper.py
     depends_on:
       - selenium
+    # TODO: don't load entire env file into the scraper
+    env_file:
+      - ../.env 
 
